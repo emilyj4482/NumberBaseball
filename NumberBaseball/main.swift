@@ -7,6 +7,43 @@
 
 import Foundation
 
+func welcomeMessage() {
+    print("Welcome to Number Baseball Game! Select a number.\n[1] Game Start [2] Records [3] Exit")
+    guard let input = readLine()
+    else {
+        print("[ERROR] Unknown error occurred.")
+        return
+    }
+    separateActions(input)
+}
+
+func separateActions(_ input: String) {
+    switch input {
+    case "1":
+        startGame()
+    case "2":
+        getRecords()
+    case "3":
+        Exit()
+    default:
+        print("[ERROR] You should put among 1, 2 and 3 only.")
+        welcomeMessage()
+    }
+}
+
+func getRecords() {
+    print("[2] selected")
+    // TODO: 기록 보기 구현
+    
+    // 기록 출력 후 다시 초기 선택 시점으로 돌아감
+    welcomeMessage()
+}
+
+// 프로그램 완전 종료 지점
+func Exit() {
+    print("Bye.")
+}
+
 /**
  getAnswer 함수를 통해 제작한 정답을 담을 빈 값
  - Character type Array인 이유 : input 값의 각 자리수를 검사할 때 .map { $0 }을 이용할 건데, readLine()이 String type이고, 그것을 .map { $0 } 처리하면 [Character]이 되어 편리하기 때문
@@ -61,6 +98,8 @@ func getInput() {
     
     if input.map({ $0 }) == answer {
         print(">> correct!\n[Game End]")
+        // 게임 종료 후 다시 초기 선택 시점으로 돌아감
+        welcomeMessage()
     } else {
         examAnswer(input.map({ $0 }))
         getInput()
@@ -139,4 +178,6 @@ func printHint(_ strike: Int, _ ball: Int) {
 }
 
 // Game Play
-startGame()
+// startGame()
+// Programme Open
+welcomeMessage()
