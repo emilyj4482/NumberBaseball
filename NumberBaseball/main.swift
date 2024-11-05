@@ -45,28 +45,11 @@ func Exit() {
 }
 
 /**
- getAnswer 함수를 통해 제작한 정답을 담을 빈 값
- - Character type Array인 이유 : input 값의 각 자리수를 검사할 때 .map { $0 }을 이용할 건데, readLine()이 String type이고, 그것을 .map { $0 } 처리하면 [Character]이 되어 편리하기 때문
+ startGame() 함수가 실행되면 정답을 제작하여 담을 빈 값
+ - String type Array인 이유 : input 값의 각 자리수를 검사할 때 .map을 이용할 건데, readLine()이 String type이고, 그것을 .map { Int($0 } 처리하면 optional이지만 .map { String($0) }으로 하면 확정적으로 변환되기 때문
 */
-var answer: [Character] = []
+var answer = [String]()
 
-/**
- 정답 제작 함수 : 1 ~ 9 사이의 서로 다른 임의의 수 3개를 뽑아 반환
- - `while` : 1 ~ 9 사이에서 뽑은 무작위 값에 대한 중복 검사를 한 뒤, `result`에 넣는다. 3개가 채워지면 종료
- */
-func getAnswer() -> [Character] {
-    let array = (1...9).map { Character("\($0)") }
-    var result = [Character]()
-    
-    while result.count < 3 {
-        if let digit = array.randomElement(),
-           !result.contains(digit) {
-            result.append(digit)
-        }
-    }
-    // print(result)
-    return result
-}
 /**
  게임 실행 함수
  1. `answer`에 `getAnswer()` 함수를 통해 뽑은 3개의 수를 담은 뒤
@@ -74,7 +57,8 @@ func getAnswer() -> [Character] {
  3. 입력값을 받는 `getInput()` 함수 호출
  */
 func startGame() {
-    answer = getAnswer()
+    // create answer : 0 ~ 9를 담은 sequence의 순서를 shuffle 한 뒤 맨 앞 원소가 0이라면 제거하고 처음 3개의 원소를 추출하여 String으로 형변환한 배열
+    answer = (0...9).shuffled().trimmingPrefix([0]).prefix(3).map { String($0) }
     print("[Game Start]")
     getInput()
 }
@@ -96,12 +80,14 @@ func getInput() {
         return
     }
     
-    if input.map({ $0 }) == answer {
+    let inputToArray = input.map { String($0) }
+    
+    if inputToArray == answer {
         print(">> correct!\n[Game End]")
         // 게임 종료 후 다시 초기 선택 시점으로 돌아감
         welcomeMessage()
     } else {
-        examAnswer(input.map({ $0 }))
+        examAnswer(inputToArray)
         getInput()
     }
 }
@@ -113,8 +99,13 @@ func getInput() {
  - 입력값이 유효하여 모든 `guard`문을 통과할 경우 `true`를 return
  */
 func examInput(_ input: String) -> Bool {
-    guard !input.contains("0") else {
-        print("[ERROR] The answer cannot contain zero.")
+    guard Set(Array(input)).count == 3 else {
+        print("[ERROR] You should put unique digits only.")
+        return false
+    }
+    
+    guard !input.hasPrefix("0") else {
+        print("[ERROR] The answer cannot start with zero.")
         return false
     }
     
@@ -128,10 +119,6 @@ func examInput(_ input: String) -> Bool {
         return false
     }
     
-    guard Set(String(input).map({ $0 })).count == 3 else {
-        print("[ERROR] You should put unique digits only.")
-        return false
-    }
     return true
 }
 
@@ -142,7 +129,7 @@ func examInput(_ input: String) -> Bool {
  2) 교집합 메소드인 `intersection`을 사용하기 위해 `Set` 형변환을 하였으며 교집합 개수에서 `strike`를 빼준 값이 `ball`. (자리는 다르지만 같은 값이 존재하는 경우를 count)
  3) 검사 결과를 포함하는 hint 구문을 출력하는 `printHint` 함수를 호출
  */
-func examAnswer(_ input: [Character]) {
+func examAnswer(_ input: [String]) {
     var strike: Int = 0
     var ball: Int = 0
     
