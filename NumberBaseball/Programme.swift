@@ -54,7 +54,7 @@ class Programme {
     private func getRecords() {
         print("[Your games so far]")
         if counts.count < 1 {
-            print("0 games played. No records.")
+            print("0 game played. No records.")
         } else {
             counts.enumerated().forEach {
                 print("GAME \($0.offset + 1) : \($0.element) \($0.element == 1 ? "guess" : "guesses")")
