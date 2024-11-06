@@ -9,9 +9,9 @@ import Foundation
 
 class Programme {
     
-    var answer: [String] = []   // startGame()에서 제작된 정답이 할당될 빈 값
-    var count: Int = 0          // 단일 게임 guess 횟수가 저장될 빈 값
-    var counts: [Int] = []      // 게임 기록이 저장될 빈 값
+    private var answer: [String] = []   // startGame()에서 제작된 정답이 할당될 빈 값
+    private var count: Int = 0          // 단일 게임 guess 횟수가 저장될 빈 값
+    private var counts: [Int] = []      // 게임 기록이 저장될 빈 값
     
     func welcomeMessage() {
         print("Welcome to Number Baseball Game! Select a number.\n[1] Game Start [2] Records [3] Exit")
@@ -23,7 +23,7 @@ class Programme {
         separateActions(input)
     }
     
-    func separateActions(_ input: String) {
+    private func separateActions(_ input: String) {
         switch input {
         case "1":
             startGame()
@@ -37,7 +37,7 @@ class Programme {
         }
     }
     
-    func getRecords() {
+    private func getRecords() {
         print("[Your games so far]")
         if counts.count < 1 {
             print("0 games played. No records.")
@@ -49,7 +49,7 @@ class Programme {
         askGoingBack()
     }
     
-    func askGoingBack() {
+    private func askGoingBack() {
         print("Want to go back to main menu?\n[1] Yes. [2] No, exit.")
         guard let input = readLine()
         else {
@@ -68,7 +68,7 @@ class Programme {
     }
 
     // 프로그램 완전 종료 지점
-    func Exit() {
+    private func Exit() {
         print("Bye.")
     }
     
@@ -78,7 +78,7 @@ class Programme {
      2. `Game Start` 문구 출력
      3. 입력값을 받는 `getInput()` 함수 호출
      */
-    func startGame() {
+    private func startGame() {
         // create answer : 0 ~ 9를 담은 sequence의 순서를 shuffle 한 뒤 맨 앞 원소가 0이라면 제거하고 처음 3개의 원소를 추출하여 String으로 형변환한 배열
         answer = (0...9).shuffled().trimmingPrefix([0]).prefix(3).map { String($0) }
         print("[Game Start]")
@@ -92,7 +92,7 @@ class Programme {
      3. `getInput` 함수를 통해 정답 검사 진행 (게임 플레이)
      4. 정답 시 `Game End` 문구 출력 및 게임 종료
      */
-    func getInput() {
+    private func getInput() {
         print("Put a 3-digit number down below.")
         guard
             let input = readLine(),
@@ -119,7 +119,7 @@ class Programme {
         }
     }
     
-    func askPlayingAgain() {
+    private func askPlayingAgain() {
         print("Play Again?\n[1] Yes. [2] No, go to main. [3] No, exit.")
         guard let input = readLine()
         else {
@@ -145,7 +145,7 @@ class Programme {
      - `guard`문을 통해 유효하지 않은 값이 입력될 때마다 에러 메시지를 출력하고 `false`를 return하며 exit
      - 입력값이 유효하여 모든 `guard`문을 통과할 경우 `true`를 return
      */
-    func examInput(_ input: String) -> Bool {
+    private func examInput(_ input: String) -> Bool {
         guard Set(Array(input)).count == 3 else {
             print("[ERROR] You should put unique digits only.")
             return false
@@ -176,7 +176,7 @@ class Programme {
      2) 교집합 메소드인 `intersection`을 사용하기 위해 `Set` 형변환을 하였으며 교집합 개수에서 `strike`를 빼준 값이 `ball`. (자리는 다르지만 같은 값이 존재하는 경우를 count)
      3) 검사 결과를 포함하는 hint 구문을 출력하는 `printHint` 함수를 호출
      */
-    func examAnswer(_ input: [String]) {
+    private func examAnswer(_ input: [String]) {
         var strike: Int = 0
         var ball: Int = 0
         
@@ -199,7 +199,7 @@ class Programme {
      - count가 0일 경우 0개라고 알려주는 것이 아니라 아예 출력하지 않도록 처리
      - 둘다 0일 경우 out 출력
      */
-    func printHint(_ strike: Int, _ ball: Int) {
+    private func printHint(_ strike: Int, _ ball: Int) {
         if strike > 0 && ball > 0 {
             print(">> \(strike) strike \(ball) ball")
         } else if strike > 0 {
