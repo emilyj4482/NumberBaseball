@@ -8,4 +8,4 @@
 import Foundation
 
 let programme = Programme()
-programme.welcomeMessage()
+programme.start()
