@@ -9,7 +9,7 @@ import Foundation
 
 struct Game {
     private var answer: [String]
-    var count: Int
+    private var count: Int
     
     private let recordManager: RecordManager
     
