@@ -65,7 +65,7 @@ class Programme {
     /**
      동작 분기 함수2
      - 게임 종료 후 또는 기록 조회 후 호출
-     - 상태에 따라 질문지 다르게 출력, 1번 동작 다르게 호출
+     - 상태에 따라 질문지 다르게 출력, 동작 다르게 호출
      */
     private func chooseAgain(afterGame: Bool) {
         afterGame ? print(Messages.playAgainMessage) : print(Messages.goBackMessage)
