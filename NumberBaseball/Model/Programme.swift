@@ -78,7 +78,7 @@ class Programme {
         case "1":
             afterGame ? startGame() : start()
         case "2":
-            exit()
+            afterGame ? start() : exit()
         default:
             print(Messages.invalidInputMessage)
             chooseAgain(afterGame: afterGame)
