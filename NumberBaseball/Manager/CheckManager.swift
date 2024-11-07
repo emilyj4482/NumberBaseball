@@ -12,20 +12,20 @@ class CheckManager {
      입력값 유효 검사 함수
      */
     func checkInput(_ input: String) -> Result<[String], InputError> {
-        guard Set(Array(input)).count == 3 else {
-            return .failure(.overlapNumber)
-        }
-        
         guard !input.hasPrefix("0") else {
             return .failure(.prefixZero)
         }
         
-        guard let input = Int(input) else {
+        guard let integer = Int(input) else {
             return .failure(.notInteger)
         }
         
-        guard input > 99 && input < 1000 else {
+        guard integer > 99 && integer < 1000 else {
             return .failure(.digitsOutOfRange)
+        }
+        
+        guard Set(Array(integer.description)).count == 3 else {
+            return .failure(.overlapNumber)
         }
         
         let inputToArray = input.description.map { String($0) }
