@@ -33,7 +33,7 @@ class CheckManager: CheckManagerType {
             return .failure(.overlapNumber)
         }
         
-        let inputToArray = input.description.map { String($0) }
+        let inputToArray = input.map { String($0) }
         return .success(inputToArray)
     }
     
