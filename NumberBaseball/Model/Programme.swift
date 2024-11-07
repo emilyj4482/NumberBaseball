@@ -18,12 +18,12 @@ class Programme {
      */
     func start() {
         print(Messages.welcomeMessage)
-        guard let input = readLine()
-        else {
-            print(Messages.unknownErrorMessage)
-            return
+        do {
+            let input = try managers.inputManager.readInput()
+            chooseAction(input)
+        } catch let error {
+            print(error.localizedDescription)
         }
-        chooseAction(input)
     }
     
     /**
@@ -69,19 +69,19 @@ class Programme {
      */
     private func chooseAgain(afterGame: Bool) {
         afterGame ? print(Messages.playAgainMessage) : print(Messages.goBackMessage)
-        guard let input = readLine()
-        else {
-            print(Messages.unknownErrorMessage)
-            return
-        }
-        switch input {
-        case "1":
-            afterGame ? startGame() : start()
-        case "2":
-            afterGame ? start() : exit()
-        default:
-            print(Messages.invalidInputMessage)
-            chooseAgain(afterGame: afterGame)
+        do {
+            let input = try managers.inputManager.readInput()
+            switch input {
+            case "1":
+                afterGame ? startGame() : start()
+            case "2":
+                afterGame ? start() : exit()
+            default:
+                print(Messages.invalidInputMessage)
+                chooseAgain(afterGame: afterGame)
+            }
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
 

@@ -52,12 +52,12 @@ struct Game {
     private mutating func getInput() {
         print(Messages.gettingInputMessage)
         
-        guard let input = readLine() else {
-            print(Messages.unknownErrorMessage)
-            return
+        do {
+            let input = try managers.inputManager.readInput()
+            getResult(input)
+        } catch let error {
+            print(error.localizedDescription)
         }
-        
-        getResult(input)
     }
 
     /**
