@@ -9,7 +9,7 @@ import Foundation
 
 class Programme {
     
-    private let recordManager = RecordManager()
+    private let managers: ManagerType = Managers()
     
     /**
      프로그램 실행 함수
@@ -49,7 +49,7 @@ class Programme {
      [1] 게임 시작 함수
      */
     private func startGame() {
-        var game = Game(recordManager: recordManager)
+        var game = Game(managers: managers)
         game.start()
         chooseAgain(afterGame: true)
     }
@@ -58,7 +58,7 @@ class Programme {
      [2] 기록 조회 함수
      */
     private func getRecords() {
-        recordManager.getRecords()
+        managers.recordManager.getRecords()
         chooseAgain(afterGame: false)
     }
     

@@ -7,7 +7,12 @@
 
 import Foundation
 
-class CheckManager {
+protocol CheckManagerType {
+    func checkInput(_ input: String) -> Result<[String], InputError>
+    func checkAnswer(input: [String], answer: [String]) -> Bool
+}
+
+class CheckManager: CheckManagerType {
     /**
      입력값 유효 검사 함수
      */

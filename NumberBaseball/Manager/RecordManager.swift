@@ -7,7 +7,12 @@
 
 import Foundation
 
-class RecordManager {
+protocol RecordManagerType {
+    func getRecords()
+    func addRecord(_ record: Int)
+}
+
+class RecordManager: RecordManagerType {
     private var records: [Int] = []
     
     /**

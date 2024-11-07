@@ -11,12 +11,12 @@ struct Game {
     private var answer: [String]
     private var count: Int
     
-    private let recordManager: RecordManager
+    private let managers: ManagerType
     
-    init(answer: [String] = [], count: Int = 0, recordManager: RecordManager) {
+    init(answer: [String] = [], count: Int = 0, managers: ManagerType) {
         self.answer = answer
         self.count = count
-        self.recordManager = recordManager
+        self.managers = managers
     }
     
     /**
@@ -69,7 +69,7 @@ struct Game {
      5. 오답일 경우 다시 입력값을 받도록 getInput 함수 호출
      */
     private mutating func getResult(_ input: String) {
-        let checkManager = CheckManager()
+        let checkManager = managers.checkManager
         let result = checkManager.checkInput(input)
         
         switch result {
@@ -92,7 +92,7 @@ struct Game {
      */
     private mutating func end() {
         print(Messages.gameEndMessage)
-        recordManager.addRecord(count)
+        managers.recordManager.addRecord(count)
     }
 
 }
