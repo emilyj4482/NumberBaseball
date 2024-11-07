@@ -20,7 +20,7 @@ class RecordManager {
             print(Messages.noRecordMessage)
         } else {
             records.enumerated().forEach {
-                print("GAME \($0.offset + 1) : \($0.element) \($0.element == 1 ? "guess" : "guesses")")
+                print("GAME \($0.offset + 1) >>> \($0.element) \($0.element == 1 ? "guess" : "guesses")")
             }
         }
     }
