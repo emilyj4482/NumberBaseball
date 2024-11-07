@@ -21,7 +21,7 @@ class RecordManager: RecordManagerType {
      */
     func getRecords() {
         print(Messages.gettingRecordsMessage)
-        if records.count < 1 {
+        if records.isEmpty {
             print(Messages.noRecordMessage)
         } else {
             records.enumerated().forEach {
