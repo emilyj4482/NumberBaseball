@@ -45,7 +45,7 @@ class Programme {
 }
 ```
 > - 프로그램을 운영합니다.
-> - ManagerType을 의존하여 작업 처리에 도움을 받습니다.
+> - `ManagerType`을 의존하여 작업 처리에 도움을 받습니다.
 > - 사용자의 입력값에 따라 [1] 게임 플레이 [2] 기록 조회 [3] 프로그램 종료 작업을 호출합니다.
 > - `Game`을 소유합니다.
 ### Game.swift
@@ -62,7 +62,7 @@ struct Game {
 }
 ```
 > - 단일 게임의 값 타입입니다.
-> - `Programme`으로부터 ManagerType을 주입 받습니다.
+> - `Programme`으로부터 `ManagerType`을 주입 받습니다.
 > - `Programme`의 `startGame()`에서 지역변수로 생성되고, `start()` 함수를 호출 받습니다.
 > - 게임이 종료되면 `managers.recordManager`를 통해 기록을 남기고 해제됩니다.
 ### ManagerType.swift
