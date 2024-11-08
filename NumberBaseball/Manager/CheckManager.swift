@@ -25,7 +25,7 @@ class CheckManager: CheckManagerType {
             return .failure(.notInteger)
         }
         
-        guard integer > 99 && integer < 1000 else {
+        guard 100...999 ~= integer else {
             return .failure(.digitsOutOfRange)
         }
         
