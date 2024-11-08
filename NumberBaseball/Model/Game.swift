@@ -38,37 +38,26 @@ struct Game {
      게임 실행 함수
      1. answer에 정답 제작하여 할당
      2. Game Start 문구 출력
-     3. 입력값을 받는 `getInput()` 함수 호출
+     3. 게임 플레이 함수 호출
      */
     mutating func start() {
         answer = createAnswer()
         print(Messages.gameStartMessage)
-        getInput()
-    }
-    
-    /**
-     입력값을 받아서 검사 함수에 전달하는 함수
-     */
-    private mutating func getInput() {
-        print(Messages.gettingInputMessage)
-        
-        do {
-            let input = try managers.inputManager.readInput()
-            getResult(input)
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        play()
     }
 
     /**
-     정답 판정 함수
-     1. check manager를 통해 유효성 검사
-     2. 실패 시 다시 입력값을 받도록 getInput 함수 호출
-     3. 성공 시 check manager를 통해 정답 검사
-     4. 정답일 경우 end 함수 호출
-     5. 오답일 경우 다시 입력값을 받도록 getInput 함수 호출
+     게임 플레이 함수
+     1. 사용자 입력
+     2. check manager를 통해 유효성 검사
+     - 실패 시 다시 입력값을 받도록 play 회귀
+     - 성공 시 check manager를 통해 정답 검사
+     3. 정답일 경우 end 함수 호출
+     - 오답일 경우 다시 입력값을 받도록 play 회귀
      */
-    private mutating func getResult(_ input: String) {
+    private mutating func play() {
+        print(Messages.gettingInputMessage)
+        let input = readLine() ?? ""
         let checkManager = managers.checkManager
         let result = checkManager.checkInput(input)
         
@@ -78,11 +67,11 @@ struct Game {
             if checkManager.checkAnswer(input: array, answer: answer) {
                 end()
             } else {
-                getInput()
+                play()
             }
         case .failure(let error):
             print(error.localizedDescription)
-            getInput()
+            play()
         }
     }
     
