@@ -28,7 +28,7 @@ https://velog.io/@emilyj4482/series/BaseballGame
 ```swift
 import Foundation
 
-let programme = Programmer()
+let programme = Programme()
 programme.start()
 ```
 > 프로그램을 실행합니다.
@@ -93,7 +93,7 @@ enum InputError: Error {
 ### Messages.swift
 ```swift
 struct Messages {
-  static let message: String
+    static let message: String
 }
 ```
 > `CLI` 특성 상 많은 로그 메시지 출력이 이루어지는 만큼, 미리 저장하여 사용할 수 있도록 구성한 구조체입니다.
