@@ -51,10 +51,10 @@ class Programme {
 ### Game.swift
 ```swift
 struct Game {
-    private var answer: [String]
+    private var answer: [Int]
     private var count: Int
     private let managers: ManagerType
-    private func createAnswer() -> [String]
+    private func createAnswer() -> [Int]
     private mutating func countUp()
     mutating func start()
     private mutating func play()
@@ -72,8 +72,8 @@ protocol ManagerType {
     var recordManager: RecordManagerType { get }
 }
 protocol CheckManagerType {
-    func checkInput(_ input: String) -> Result<[String], InputError>
-    func checkAnswer(input: [String], answer: [String]) -> Bool
+    func checkInput(_ input: String) -> Result<[Int], InputError>
+    func checkAnswer(input: [Int], answer: [Int]) -> Bool
 }
 protocol RecordManagerType {
     func getRecords()
