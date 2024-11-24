@@ -68,16 +68,12 @@ class CheckManager: CheckManagerType {
      - count가 0일 경우 0개라고 알려주는 것이 아니라 아예 출력하지 않도록 처리
      */
     private func printHint(_ strike: Int, _ ball: Int) {
-        if strike == 3 {
-            print(">>> correct!")
-        } else if strike > 0 && ball > 0 {
-            print(">>> \(strike) strike \(ball) ball")
-        } else if strike > 0 {
-            print(">>> \(strike) strike")
-        } else if ball > 0 {
-            print(">>> \(ball) ball")
-        } else {
-            print(">>> out")
+        switch (strike, ball) {
+        case (0, 0): print(">>> out")
+        case (3, 0): print(">>> correct!")
+        case (_, 0): print(">>> \(strike) strike")
+        case (0, _): print(">>> \(ball) ball")
+        case (_, _): print(">>> \(strike) strike, \(ball) ball")
         }
     }
 }
