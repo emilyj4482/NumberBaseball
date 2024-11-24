@@ -46,15 +46,13 @@ class CheckManager: CheckManagerType {
         var strike: Int = 0
         var ball: Int = 0
         
-        // 1) count strike
-        zip(answer, input).forEach {
-            if $0 == $1 {
+        for (index, element) in answer.enumerated() {
+            if input[index] == element {
                 strike += 1
+            } else if input.contains(element) {
+                ball += 1
             }
         }
-        
-        // 2) count ball
-        ball = Set(answer).intersection(input).count - strike
         
         printHint(strike, ball)
         
