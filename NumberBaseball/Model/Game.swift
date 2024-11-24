@@ -8,12 +8,12 @@
 import Foundation
 
 struct Game {
-    private var answer: [String]
+    private var answer: [Int]
     private var count: Int
     
     private let managers: ManagerType
     
-    init(answer: [String] = [], count: Int = 0, managers: ManagerType) {
+    init(answer: [Int] = [], count: Int = 0, managers: ManagerType) {
         self.answer = answer
         self.count = count
         self.managers = managers
@@ -22,8 +22,8 @@ struct Game {
     /**
      정답 제작 함수
      */
-    private func createAnswer() -> [String] {
-        return (0...9).shuffled().trimmingPrefix([0]).prefix(3).map { String($0) }
+    private func createAnswer() -> [Int] {
+        return Array((0...9).shuffled().trimmingPrefix([0]).prefix(3))
     }
     
     /**

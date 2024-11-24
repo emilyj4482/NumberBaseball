@@ -8,15 +8,15 @@
 import Foundation
 
 protocol CheckManagerType {
-    func checkInput(_ input: String) -> Result<[String], InputError>
-    func checkAnswer(input: [String], answer: [String]) -> Bool
+    func checkInput(_ input: String) -> Result<[Int], InputError>
+    func checkAnswer(input: [Int], answer: [Int]) -> Bool
 }
 
 class CheckManager: CheckManagerType {
     /**
      입력값 유효 검사 함수
      */
-    func checkInput(_ input: String) -> Result<[String], InputError> {
+    func checkInput(_ input: String) -> Result<[Int], InputError> {
         guard !input.hasPrefix("0") else {
             return .failure(.prefixZero)
         }
@@ -33,7 +33,7 @@ class CheckManager: CheckManagerType {
             return .failure(.overlapNumber)
         }
         
-        let inputToArray = input.map { String($0) }
+        let inputToArray = input.compactMap { $0.wholeNumberValue }
         return .success(inputToArray)
     }
     
@@ -42,7 +42,7 @@ class CheckManager: CheckManagerType {
      - strike와 ball을 검사하여 힌트 출력 함수 printHint로 전달
      - 정답일 시 true 오답일 시 false 반환
      */
-    func checkAnswer(input: [String], answer: [String]) -> Bool {
+    func checkAnswer(input: [Int], answer: [Int]) -> Bool {
         var strike: Int = 0
         var ball: Int = 0
         
